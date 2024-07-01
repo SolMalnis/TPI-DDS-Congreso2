@@ -233,34 +233,35 @@ async function CrearBaseSiNoExiste() {
         // Tabla Evaluacion
         let existeEvaluacion = false;
         res = await db.get(
-            "SELECT count(*) as contar FROM sqlite_schema WHERE type = 'table' and name= 'Evaluacion'",
+            "SELECT count(*) as contar FROM sqlite_schema WHERE type = 'table' and name= 'Evaluaciones'",
             []
         );
         if (res.contar > 0) existeEvaluacion = true;
         if (!existeEvaluacion) {
             await db.run(`
-                CREATE TABLE  Evaluacion (
+                CREATE TABLE  Evaluaciones (
                     Id INTEGER PRIMARY KEY AUTOINCREMENT,
                     IdParticipante INTEGER,
                     IdCongreso INTEGER,
                     Puntuacion INTEGER,
-                    Comentario TEXT,
+                    Comentarios TEXT,
+                    Fecha DATE,
                     FOREIGN KEY (IdParticipante) REFERENCES Participante(Id),
                     FOREIGN KEY (IdCongreso) REFERENCES Congreso(Id)
                 )
             `);
             await db.run(`
-                INSERT INTO Evaluacion (IdParticipante, IdCongreso, Puntuacion, Comentario) VALUES
-                (1, 1, 4, 'Muy buen congreso, excelente organización.'),
-                (2, 2, 5, 'Me gustó mucho la profundidad de los temas tratados.'),
-                (3, 3, 3, 'Buena experiencia, aunque algunos horarios se solapaban.'),
-                (4, 4, 4, 'Interesante, aprendí mucho sobre desarrollo web.'),
-                (5, 5, 5, 'Excelente organización y ponentes muy cualificados.'),
-                (6, 6, 4, 'Buenas sesiones, aunque algunas podrían haber sido más interactivas.'),
-                (7, 7, 3, 'Temas relevantes pero la logística podría mejorar.'),
-                (8, 8, 5, 'Muy buena iniciativa sobre energías renovables.'),
-                (9, 9, 4, 'Interesante discusión sobre emprendimiento y financiamiento.'),
-                (10, 10, 3, 'Me gustó el enfoque en gastronomía sostenible.')
+                INSERT INTO Evaluaciones (IdParticipante, IdCongreso, Puntuacion, Comentarios,Fecha) VALUES
+                (1, 1, 4, 'Muy buen congreso, excelente organización.','2024-09-04'),
+                (2, 2, 5, 'Me gustó mucho la profundidad de los temas tratados.','2024-09-04'),
+                (3, 3, 3, 'Buena experiencia, aunque algunos horarios se solapaban.','2024-09-04'),
+                (4, 4, 4, 'Interesante, aprendí mucho sobre desarrollo web.','2024-09-04'),
+                (5, 5, 5, 'Excelente organización y ponentes muy cualificados.,'2024-09-04''),
+                (6, 6, 4, 'Buenas sesiones, aunque algunas podrían haber sido más interactivas.','2024-09-04'),
+                (7, 7, 3, 'Temas relevantes pero la logística podría mejorar.','2024-09-04'),
+                (8, 8, 5, 'Muy buena iniciativa sobre energías renovables.','2024-09-04'),
+                (9, 9, 4, 'Interesante discusión sobre emprendimiento y financiamiento.','2024-09-04'),
+                (10, 10, 3, 'Me gustó el enfoque en gastronomía sostenible.','2024-09-04')
             `);
         }
 
