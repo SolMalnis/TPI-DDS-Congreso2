@@ -37,6 +37,15 @@ const evaluacionRouter = require("./routes/evaluacion.route");
 app.use(evaluacionRouter);
 
 
+//Ruta para Oradores
+const oradoresRouter = require("./routes/orador.route");
+app.use(oradoresRouter);
+
+
+//Ruta para Participantes
+const participantesRouter = require("./routes/participante.route");
+app.use(participantesRouter);
+
 // Levantar servidor
 app.listen(port, () => {
     console.log(`Servidor escuchando en el puerto ${port}`);

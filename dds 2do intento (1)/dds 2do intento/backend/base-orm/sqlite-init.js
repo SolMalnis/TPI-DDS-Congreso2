@@ -177,23 +177,23 @@ async function CrearBaseSiNoExiste() {
             await db.run(`
                 CREATE TABLE Participantes (
                     Id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    Nombre TEXT,
-                    Apellidos TEXT,
-                    Email TEXT
+                    NombreParticipante TEXT,
+                    ApellidoParticipante TEXT,
+                    FechaNacimiento DATE
                 )
             `);
             await db.run(`
-                INSERT INTO Participantes (Nombre, Apellidos, Email) VALUES
-                ('María', 'López', 'maria.lopez@example.com'),
-                ('Carlos', 'González', 'carlos.gonzalez@example.com'),
-                ('Laura', 'Martínez', 'laura.martinez@example.com'),
-                ('Jorge', 'Sánchez', 'jorge.sanchez@example.com'),
-                ('Ana', 'Hernández', 'ana.hernandez@example.com'),
-                ('Pablo', 'Díaz', 'pablo.diaz@example.com'),
-                ('Elena', 'Rodríguez', 'elena.rodriguez@example.com'),
-                ('Luis', 'Gómez', 'luis.gomez@example.com'),
-                ('Sofía', 'Pérez', 'sofia.perez@example.com'),
-                ('Diego', 'Ruiz', 'diego.ruiz@example.com')
+                INSERT INTO Participantes (NombreParticipante, ApellidoParticipante, FechaNacimiento) VALUES
+                    ('María', 'López', '1990-05-15'),
+                    ('Carlos', 'González', '1988-07-22'),
+                    ('Laura', 'Martínez', '1995-03-10'),
+                    ('Jorge', 'Sánchez', '1992-11-05'),
+                    ('Ana', 'Hernández', '1987-04-30'),
+                    ('Pablo', 'Díaz', '1993-09-18'),
+                    ('Elena', 'Rodríguez', '1991-07-12'),
+                    ('Luis', 'Gómez', '1989-01-25'),
+                    ('Sofía', 'Pérez', '1994-06-08'),
+                    ('Diego', 'Ruiz', '1996-02-14');
             `);
         }
         // Tabla Inscripcion
