@@ -7,6 +7,7 @@ import {BrowserRouter, Route, Routes, Navigate} from "react-router-dom"
 import {Menu} from "./components/Menu"
 import {Footer} from './components/Footer'
 import PagInicio from "./components/PagInicio"
+import Evaluacion from './components/Evaluacion/Evaluacion'
 
 function App() {
   
@@ -20,6 +21,7 @@ function App() {
       <div className="divBody">
           <Routes>
           <Route path="/Inicio" element={<PagInicio/>}/>
+          <Route path="/evaluacion" element={<Evaluacion/>}/>
           <Route path="*" element={<Navigate to="/Inicio" replace />}/> 
                 
           </Routes>
