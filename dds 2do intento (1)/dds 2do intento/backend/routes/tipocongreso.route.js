@@ -19,4 +19,24 @@ router.get("/tipocongreso", async(_,res) => {
     }
     });
 
+//Filtrar tipo de congresos  por ID
+router.get("/tipocongreso/:id", async (req, res) => {
+    try {
+        const id = req.params.id;
+        const tipocongreso = await db.TipoCongresos.findOne({
+            where: {
+                Id:id
+            }
+        });
+        if (!tipocongreso) {
+            res.status(404).send({mensaje: "tipo de congreso no encontrado"});
+        } else {
+            res.json(tipocongreso);
+        } 
+
+    } catch (error) {
+        res.status(500).send({mensaje: "Error al buscar tipo de congreso"})
+    }
+});
+
 module.exports = router;

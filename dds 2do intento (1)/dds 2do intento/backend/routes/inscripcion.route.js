@@ -18,4 +18,23 @@ router.get("/inscripcion", async (_, res) => {
     }
 });
 
+//Filtrar inscripciones por ID
+router.get("/inscripcion/:id", async (req, res) => {
+    try {
+        const id = req.params.id;
+        const inscripcion = await db.Inscripciones.findOne({
+            where: {
+                Id:id
+            }
+        });
+        if (!inscripcion) {
+            res.status(404).send({mensaje: "inscripcion no encontrada"});
+        } else {
+            res.json(inscripcion);
+        } 
+
+    } catch (error) {
+        res.status(500).send({mensaje: "Error al buscar inscripcion"})
+    }
+});
 module.exports = router;

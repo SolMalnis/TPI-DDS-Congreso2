@@ -18,4 +18,24 @@ router.get("/orador", async (_, res) => {
     }
 });
 
+//Filtrar oradores por ID
+router.get("/orador/:id", async (req, res) => {
+    try {
+        const id = req.params.id;
+        const orador = await db.Oradores.findOne({
+            where: {
+                Id:id
+            }
+        });
+        if (!orador) {
+            res.status(404).send({mensaje: "orador no encontrado"});
+        } else {
+            res.json(orador);
+        } 
+
+    } catch (error) {
+        res.status(500).send({mensaje: "Error al buscar orador"})
+    }
+});
+
 module.exports = router;

@@ -17,5 +17,23 @@ router.get("/congreso", async (_, res) => {
         res.status(500).send({ mensaje: "Error interno al buscar tipos de congreso" });
     }
 });
+//Filtrar congreso por ID
+router.get("/congreso/:id", async (req, res) => {
+    try {
+        const id = req.params.id;
+        const congreso = await db.Congreso.findOne({
+            where: {
+                Id:id
+            }
+        });
+        if (!congreso) {
+            res.status(404).send({mensaje: "congreso no encontrado"});
+        } else {
+            res.json(congreso);
+        } 
 
+    } catch (error) {
+        res.status(500).send({mensaje: "Error al buscar congreso"})
+    }
+});
 module.exports = router;
