@@ -18,4 +18,25 @@ router.get("/sala", async (_, res) => {
     }
 });
 
+//Filtrar Sala por ID
+router.get("/sala/:id", async (req, res) => {
+    try {
+        const id = req.params.id;
+        const sala = await db.Salas.findOne({
+            where: {
+                Id:id
+            }
+        });
+        if (!sala) {
+            res.status(404).send({mensaje: "Sala no encontrada"});
+        } else {
+            res.json(sala);
+        } 
+
+    } catch (error) {
+        res.status(500).send({mensaje: "Error al buscar sala"})
+    }
+});
+
+
 module.exports = router;

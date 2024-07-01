@@ -18,24 +18,5 @@ router.get("/patrocinador", async (_, res) => {
     }
 });
 
-//Filtrar patrocinadores por ID
-router.get("/patrocinador/:id", async (req, res) => {
-    try {
-        const id = req.params.id;
-        const patrocinador = await db.Patrocinadores.findOne({
-            where: {
-                Id:id
-            }
-        });
-        if (!patrocinador) {
-            res.status(404).send({mensaje: "patrocinador no encontrado"});
-        } else {
-            res.json(patrocinador);
-        } 
-
-    } catch (error) {
-        res.status(500).send({mensaje: "Error al buscar patrocinador"})
-    }
-});
 
 module.exports = router;
