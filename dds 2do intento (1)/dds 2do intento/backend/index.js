@@ -46,6 +46,11 @@ app.use(oradoresRouter);
 const participantesRouter = require("./routes/participante.route");
 app.use(participantesRouter);
 
+
+//Ruta Patrocinadores
+const patrocinadoresRouter = require("./routes/patrocinador.route");
+app.use(patrocinadoresRouter);
+
 // Levantar servidor
 app.listen(port, () => {
     console.log(`Servidor escuchando en el puerto ${port}`);
