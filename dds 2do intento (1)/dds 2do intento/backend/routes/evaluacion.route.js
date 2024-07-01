@@ -18,4 +18,25 @@ router.get("/evaluacion", async (_, res) => {
     }
 });
 
+
+//Filtrar Evaluaciones por ID
+router.get("/evaluacion/:id", async (req, res) => {
+    try {
+        const id = req.params.id;
+        const evaluacion = await db.Evaluaciones.findOne({
+            where: {
+                Id:id
+            }
+        });
+        if (!evaluacion) {
+            res.status(404).send({mensaje: "Evaluacion no encontrada"});
+        } else {
+            res.json(evaluacion);
+        } 
+
+    } catch (error) {
+        res.status(500).send({mensaje: "Error al buscar evaluacion"})
+    }
+});
+
 module.exports = router;
