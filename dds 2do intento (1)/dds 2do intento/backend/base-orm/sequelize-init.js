@@ -185,7 +185,7 @@ const Inscripciones = sequelize.define('Inscripciones', {
     timestamps: false
 });
 
-const Orador = sequelize.define('Orador', {
+const Oradores = sequelize.define('Oradores', {
     Id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -242,7 +242,7 @@ const Orador = sequelize.define('Orador', {
     timestamps: false
 });
 
-const Participante = sequelize.define('Participante', {
+const Participantes = sequelize.define('Participantes', {
     Id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -290,7 +290,7 @@ const Participante = sequelize.define('Participante', {
     timestamps: false
 });
 
-const Patrocinador = sequelize.define('Patrocinador', {
+const Patrocinadores = sequelize.define('Patrocinadores', {
     Id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -357,7 +357,7 @@ const Patrocinador = sequelize.define('Patrocinador', {
     timestamps: false
 });
 
-const Sala = sequelize.define('Sala', {
+const Salas = sequelize.define('Salas', {
     Id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -450,30 +450,31 @@ const TipoCongresos = sequelize.define('TipoCongresos', {
 /// Definición de relaciones
 
 //Relaciones Congreso
-Congreso.belongsTo(TipoCongresos, { foreignKey: 'IdTipoCongreso', as: 'TipoCongresos' });
+Congreso.belongsTo(TipoCongresos, { foreignKey: 'IdTipoCongreso', as: 'TipoCongreso' });
 
 Inscripciones.belongsTo(Congreso, { foreignKey: 'IdCongreso', as: 'Congreso' });
-Inscripciones.belongsTo(Participante, { foreignKey: 'IdParticipante', as: 'Participante' });
 
-Evaluacion.belongsTo(Congreso, { foreignKey: 'IdCongreso', as: 'Congreso' });
-Evaluacion.belongsTo(Participante, { foreignKey: 'IdParticipante', as: 'Participante' });
+Inscripciones.belongsTo(Participantes, { foreignKey: 'IdParticipante', as: 'Participantes' });
 
-Orador.belongsTo()
-Participante.belongsTo(Orador, { foreignKey: 'IdOrador', as: 'Orador' });
+Evaluaciones.belongsTo(Congreso, { foreignKey: 'IdCongreso', as: 'Congresos' });
 
-Patrocinador.belongsTo(Congreso, { foreignKey: 'IdPatrocinador', as: 'Congreso' });
+Evaluaciones.belongsTo(Participantes, { foreignKey: 'IdParticipante', as: 'Participante' });
 
-Sala.belongsTo(Congreso, { foreignKey: 'IdSala', as: 'Congreso' });
-TipoCongresos.belongsTo(Congreso, { foreignKey: 'IdTipoCongresos', as: 'Congreso' });
+Congreso.belongsTo(Oradores, {foreignKey: 'IdOrador', as: 'Orador'});
+
+Congreso.belongsTo(Patrocinadores, { foreignKey: 'IdPatrocinador', as: 'Patrocinador' });
+
+Congreso.belongsTo(Salas, { foreignKey: 'IdSala', as: 'Sala' });
+
 
 module.exports = {
     sequelize,
     Congreso,
-    Evaluacion,
+    Evaluaciones,
     Inscripciones,
-    Orador,
-    Participante,
-    Patrocinador,
-    Sala,
+    Oradores,
+    Participantes,
+    Patrocinadores,
+    Salas,
     TipoCongresos
 };

@@ -36,13 +36,13 @@ async function CrearBaseSiNoExiste() {
         }
         let existeOrador = false;
         res = await db.get(
-            "SELECT count(*) as contar FROM sqlite_schema WHERE type = 'table' and name= 'Orador'",
+            "SELECT count(*) as contar FROM sqlite_schema WHERE type = 'table' and name= 'Oradores'",
             []
         );
         if (res.contar > 0) existeOrador = true;
         if (!existeOrador) {
             await db.run(`
-                CREATE TABLE Orador (
+                CREATE TABLE Oradores (
                     Id INTEGER PRIMARY KEY AUTOINCREMENT,
                     Nombre TEXT,
                     Apellidos TEXT,
@@ -51,7 +51,7 @@ async function CrearBaseSiNoExiste() {
                 )
             `);
             await db.run(`
-                INSERT INTO Orador (Nombre, Apellidos, Biografia, Email) VALUES
+                INSERT INTO Oradores (Nombre, Apellidos, Biografia, Email) VALUES
                 ('Laura', 'García', 'Especialista en marketing digital', 'laura.garcia@example.com'),
                 ('Juan', 'Pérez', 'Experto en biotecnología', 'juan.perez@example.com'),
                 ('Ana', 'Martínez', 'Investigadora en inteligencia artificial', 'ana.martinez@example.com'),
@@ -68,20 +68,20 @@ async function CrearBaseSiNoExiste() {
         // Tabla Salas
         let existeSala = false;
         res = await db.get(
-            "SELECT count(*) as contar FROM sqlite_schema WHERE type = 'table' and name= 'Sala'",
+            "SELECT count(*) as contar FROM sqlite_schema WHERE type = 'table' and name= 'Salas'",
             []
         );
         if (res.contar > 0) existeSala = true;
         if (!existeSala) {
             await db.run(`
-                CREATE TABLE Sala (
+                CREATE TABLE Salas (
                     Id INTEGER PRIMARY KEY AUTOINCREMENT,
                     NombreSala TEXT,
                     Capacidad INTEGER
                 )
             `);
             await db.run(`
-                INSERT INTO Sala (NombreSala, Capacidad) VALUES
+                INSERT INTO Salas (NombreSala, Capacidad) VALUES
                 ('Auditorio Principal', 300),
                 ('Sala A', 100),
                 ('Sala B', 150),
@@ -98,13 +98,13 @@ async function CrearBaseSiNoExiste() {
         // Tabla Patrocinador
         let existePatrocinador = false;
         res = await db.get(
-            "SELECT count(*) as contar FROM sqlite_schema WHERE type = 'table' and name= 'Patrocinador'",
+            "SELECT count(*) as contar FROM sqlite_schema WHERE type = 'table' and name= 'Patrocinadores'",
             []
         );
         if (res.contar > 0) existePatrocinador = true;
         if (!existePatrocinador) {
             await db.run(`
-                CREATE TABLE Patrocinador (
+                CREATE TABLE Patrocinadores (
                     Id INTEGER PRIMARY KEY AUTOINCREMENT,
                     Nombre TEXT,
                     Descripcion TEXT,
@@ -113,7 +113,7 @@ async function CrearBaseSiNoExiste() {
                 )
             `);
             await db.run(`
-                INSERT INTO Patrocinador (Nombre, Descripcion, Email, Telefono) VALUES
+                INSERT INTO Patrocinadores (Nombre, Descripcion, Email, Telefono) VALUES
                 ('Tech Corp', 'Patrocinador oficial del congreso', 'contact@techcorp.com', '555-1234'),
                 ('Innovate Ltd', 'Empresa de innovación tecnológica', 'info@innovateltd.com', '555-5678'),
                 ('Educa S.A.', 'Empresa de educación', 'contact@educasa.com', '555-9012'),
@@ -146,9 +146,9 @@ async function CrearBaseSiNoExiste() {
                     IdSala INTEGER,
                     IdPatrocinador INTEGER,
                     FOREIGN KEY (IdTipoCongreso) REFERENCES TipoCongresos(Id),
-                    FOREIGN KEY (IdOrador) REFERENCES Orador(Id),
-                    FOREIGN KEY (IdSala) REFERENCES Sala(Id),
-                    FOREIGN KEY (IdPatrocinador) REFERENCES Patrocinador(Id)
+                    FOREIGN KEY (IdOrador) REFERENCES Oradores(Id),
+                    FOREIGN KEY (IdSala) REFERENCES Salas(Id),
+                    FOREIGN KEY (IdPatrocinador) REFERENCES Patrocinadores(Id)
                 )
             `);
             await db.run(`
@@ -169,13 +169,13 @@ async function CrearBaseSiNoExiste() {
         // Tabla Participante
         let existeParticipante = false;
         res = await db.get(
-            "SELECT count(*) as contar FROM sqlite_schema WHERE type = 'table' and name= 'Participante'",
+            "SELECT count(*) as contar FROM sqlite_schema WHERE type = 'table' and name= 'Participantes'",
             []
         );
         if (res.contar > 0) existeParticipante = true;
         if (!existeParticipante) {
             await db.run(`
-                CREATE TABLE Participante (
+                CREATE TABLE Participantes (
                     Id INTEGER PRIMARY KEY AUTOINCREMENT,
                     Nombre TEXT,
                     Apellidos TEXT,
@@ -183,7 +183,7 @@ async function CrearBaseSiNoExiste() {
                 )
             `);
             await db.run(`
-                INSERT INTO Participante (Nombre, Apellidos, Email) VALUES
+                INSERT INTO Participantes (Nombre, Apellidos, Email) VALUES
                 ('María', 'López', 'maria.lopez@example.com'),
                 ('Carlos', 'González', 'carlos.gonzalez@example.com'),
                 ('Laura', 'Martínez', 'laura.martinez@example.com'),
@@ -211,7 +211,7 @@ async function CrearBaseSiNoExiste() {
                     IdCongreso INTEGER,
                     FechaInscripcion DATE,
                     EstadoInscripcion TEXT,
-                    FOREIGN KEY (IdParticipante) REFERENCES Participante(Id),
+                    FOREIGN KEY (IdParticipante) REFERENCES Participantes(Id),
                     FOREIGN KEY (IdCongreso) REFERENCES Congreso(Id)
                 )
             `);
@@ -246,22 +246,22 @@ async function CrearBaseSiNoExiste() {
                     Puntuacion INTEGER,
                     Comentarios TEXT,
                     Fecha DATE,
-                    FOREIGN KEY (IdParticipante) REFERENCES Participante(Id),
+                    FOREIGN KEY (IdParticipante) REFERENCES Participantes(Id),
                     FOREIGN KEY (IdCongreso) REFERENCES Congreso(Id)
                 )
             `);
             await db.run(`
-                INSERT INTO Evaluaciones (IdParticipante, IdCongreso, Puntuacion, Comentarios,Fecha) VALUES
-                (1, 1, 4, 'Muy buen congreso, excelente organización.','2024-09-04'),
-                (2, 2, 5, 'Me gustó mucho la profundidad de los temas tratados.','2024-09-04'),
-                (3, 3, 3, 'Buena experiencia, aunque algunos horarios se solapaban.','2024-09-04'),
-                (4, 4, 4, 'Interesante, aprendí mucho sobre desarrollo web.','2024-09-04'),
-                (5, 5, 5, 'Excelente organización y ponentes muy cualificados.,'2024-09-04''),
-                (6, 6, 4, 'Buenas sesiones, aunque algunas podrían haber sido más interactivas.','2024-09-04'),
-                (7, 7, 3, 'Temas relevantes pero la logística podría mejorar.','2024-09-04'),
-                (8, 8, 5, 'Muy buena iniciativa sobre energías renovables.','2024-09-04'),
-                (9, 9, 4, 'Interesante discusión sobre emprendimiento y financiamiento.','2024-09-04'),
-                (10, 10, 3, 'Me gustó el enfoque en gastronomía sostenible.','2024-09-04')
+                INSERT INTO Evaluaciones (IdParticipante, IdCongreso, Puntuacion, Comentarios, Fecha) VALUES
+                (1, 1, 4, 'Muy buen congreso, excelente organización.','2024-09-01'),
+                (2, 2, 5, 'Me gustó mucho la profundidad de los temas tratados.','2024-09-01'),
+                (3, 3, 3, 'Buena experiencia, aunque algunos horarios se solapaban.','2024-09-01'),
+                (4, 4, 4, 'Interesante, aprendí mucho sobre desarrollo web.','2024-09-01'),
+                (5, 5, 5, 'Excelente organización y ponentes muy cualificados.','2024-09-01'),
+                (6, 6, 4, 'Buenas sesiones, aunque algunas podrían haber sido más interactivas.','2024-09-01'),
+                (7, 7, 3, 'Temas relevantes pero la logística podría mejorar.','2024-09-01'),
+                (8, 8, 5, 'Muy buena iniciativa sobre energías renovables.','2024-09-01'),
+                (9, 9, 4, 'Interesante discusión sobre emprendimiento y financiamiento.','2024-09-01'),
+                (10, 10, 3, 'Me gustó el enfoque en gastronomía sostenible.','2024-09-01')
             `);
         }
 

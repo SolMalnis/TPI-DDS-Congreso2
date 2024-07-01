@@ -31,6 +31,12 @@ app.use(congresoRouter);
 const inscripcionRouter = require("./routes/inscripcion.route");
 app.use(inscripcionRouter);
 
+
+//Ruta para Evaluacion
+const evaluacionRouter = require("./routes/evaluacion.route");
+app.use(evaluacionRouter);
+
+
 // Levantar servidor
 app.listen(port, () => {
     console.log(`Servidor escuchando en el puerto ${port}`);
