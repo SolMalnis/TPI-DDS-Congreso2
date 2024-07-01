@@ -19,6 +19,7 @@ router.get("/evaluacion", async (_, res) => {
 });
 
 
+
 //Filtrar Evaluaciones por ID
 router.get("/evaluacion/:id", async (req, res) => {
     try {
@@ -38,5 +39,82 @@ router.get("/evaluacion/:id", async (req, res) => {
         res.status(500).send({mensaje: "Error al buscar evaluacion"})
     }
 });
+
+//Eliminar elemento
+
+router.delete("/evaluacion/:id", async (req, res) => {
+    try {
+        const id = req.params.id;
+        const result = await db.Evaluaciones.destroy({
+            where: {
+                Id: id
+            }
+        });
+
+        if (result === 0) {
+            res.status(404).send({ mensaje: "Evaluación no encontrada" });
+        } else {
+            res.status(200).send({ mensaje: "Evaluación eliminada exitosamente" });
+        }
+        
+    } catch (error) {
+        res.status(500).send({ mensaje: "Error al eliminar la evaluación" });
+    }
+});
+
+
+router.post("/evaluacion", async (req, res) => {
+    try {
+        const { nombre, descripcion, fecha } = req.body;
+        const nuevaEvaluacion = await db.Evaluaciones.create({
+            Nombre: nombre,
+            Descripcion: descripcion,
+            Fecha: fecha
+        });
+        res.status(201).json(nuevaEvaluacion);
+    } catch (error) {
+        res.status(500).send({ mensaje: "Error al crear la evaluación" });
+    }
+});
+
+router.put("/evaluacion/:id", async (req, res) => {
+    try {
+        const id = req.params.id;
+        const { nombre, descripcion, fecha } = req.body;
+        const evaluacion = await db.Evaluaciones.findOne({
+            where: {
+                Id: id
+            }
+        });
+        
+        if (!evaluacion) {
+            res.status(404).send({ mensaje: "Evaluación no encontrada" });
+        } else {
+            evaluacion.Nombre = nombre;
+            evaluacion.Descripcion = descripcion;
+            evaluacion.Fecha = fecha;
+            await evaluacion.save();
+            res.json(evaluacion);
+        }
+    } catch (error) {
+        res.status(500).send({ mensaje: "Error al actualizar la evaluación" });
+    }
+});
+
+router.post("/evaluacion", async (req, res) => {
+    try {
+        const { nombre, descripcion, fecha } = req.body;
+        const nuevaEvaluacion = await db.Evaluaciones.create({
+            Nombre: nombre,
+            Descripcion: descripcion,
+            Fecha: fecha
+        });
+        res.status(201).json(nuevaEvaluacion);
+    } catch (error) {
+        res.status(500).send({ mensaje: "Error al crear la evaluación" });
+    }
+});
+
+
 
 module.exports = router;
