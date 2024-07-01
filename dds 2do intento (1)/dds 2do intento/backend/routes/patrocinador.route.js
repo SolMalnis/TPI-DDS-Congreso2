@@ -18,4 +18,5 @@ router.get("/patrocinador", async (_, res) => {
     }
 });
 
+
 module.exports = router;

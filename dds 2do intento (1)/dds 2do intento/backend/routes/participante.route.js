@@ -18,4 +18,26 @@ router.get("/participante", async (_, res) => {
     }
 });
 
+//Filtrar Participantes por ID
+router.get("/participante/:id", async (req, res) => {
+    try {
+        const id = req.params.id;
+        const participante = await db.Participantes.findOne({
+            where: {
+                Id:id
+            }
+        });
+        if (!participante) {
+            res.status(404).send({mensaje: "Participante no encontrado"});
+        } else {
+            res.json(participante);
+        } 
+
+    } catch (error) {
+        res.status(500).send({mensaje: "Error al buscar participante"})
+    }
+});
+
+
+
 module.exports = router;

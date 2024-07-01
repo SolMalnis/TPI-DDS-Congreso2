@@ -101,20 +101,6 @@ router.put("/evaluacion/:id", async (req, res) => {
     }
 });
 
-router.post("/evaluacion", async (req, res) => {
-    try {
-        const { nombre, descripcion, fecha } = req.body;
-        const nuevaEvaluacion = await db.Evaluaciones.create({
-            Nombre: nombre,
-            Descripcion: descripcion,
-            Fecha: fecha
-        });
-        res.status(201).json(nuevaEvaluacion);
-    } catch (error) {
-        res.status(500).send({ mensaje: "Error al crear la evaluación" });
-    }
-});
-
 
 
 module.exports = router;
