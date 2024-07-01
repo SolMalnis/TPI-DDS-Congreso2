@@ -50,6 +50,9 @@ app.use(participantesRouter);
 //Ruta para Salas
 const salasRouter = require("./routes/sala.route");
 app.use(salasRouter);
+//Ruta Patrocinadores
+const patrocinadoresRouter = require("./routes/patrocinador.route");
+app.use(patrocinadoresRouter);
 
 // Levantar servidor
 app.listen(port, () => {
