@@ -14,7 +14,7 @@ async function getSalas() {
 
 async function eliminarSala(id) {
     try{
-        let newUrl = API_URL + "/" + id;
+        let newUrl = API_URL + "/e/" + id;
         return await axios.put(newUrl).then((response) => {
           return response.data;
         });
@@ -26,4 +26,27 @@ async function eliminarSala(id) {
 
 
 
-export default {getSalas, eliminarSala}
+  async function actualizarSala(id, data) {
+    let newUrl = API_URL + "/" + id;
+    try{
+        return await axios.put(newUrl, data).then((response) => {
+            return response.data;
+        });
+    }catch (error) {
+        throw error;
+    }
+  }
+
+  async function crearSala(data) {
+    try{
+        return await axios.post(API_URL, data).then((response) => {
+        return response.data;
+      });
+    }catch (error) {
+        throw error;
+    }
+    
+  }
+
+
+export default {getSalas, eliminarSala, actualizarSala, crearSala}

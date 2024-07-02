@@ -10,9 +10,10 @@ import PagInicio from "./components/PagInicio"
 import Evaluacion from './components/Evaluacion/Evaluacion'
 import Congresos from './components/Congreso/TablaCongreso'
 
-
 import Sala from './components/Sala/Sala'
 import Congreso from './components/Congreso/Congreso'
+import TipoCongreso from "./components/TipoCongreso/TipoCongreso"
+import Orador from './components/Orador/Orador'
 
 function App() {
   
@@ -29,7 +30,9 @@ function App() {
           <Route path="/congresos" element={<Congresos/>}/>
           <Route path="/evaluacion" element={<Evaluacion/>}/>
           <Route path="/sala" element={<Sala/>}/>
+          <Route path="/tipoCongreso" element={<TipoCongreso/>}/>
           <Route path="/congreso" element={<Congreso/>}/>
+          <Route path="/orador" element={<Orador/>}/>
           <Route path="*" element={<Navigate to="/Inicio" replace />}/> 
                 
           </Routes>

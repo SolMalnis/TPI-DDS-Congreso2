@@ -14,7 +14,7 @@ async function getCongresos() {
 
 async function eliminarCongreso(id) {
     try{
-        let newUrl = API_URL + "/" + id;
+        let newUrl = API_URL + "/e/" + id;
         return await axios.put(newUrl).then((response) => {
           return response.data;
         });

@@ -17,20 +17,20 @@ async function CrearBaseSiNoExiste() {
                     Id INTEGER PRIMARY KEY AUTOINCREMENT,
                     Nombre TEXT,
                     Descripcion TEXT,
-                    Participantes INTEGER
+                    Activo BOOLEAN DEFAULT TRUE
                 );`
             );
             console.log("Tabla TipoCongresos creada!");
             await db.run(
-                `INSERT INTO TipoCongresos (Nombre, Descripcion, Participantes) VALUES 
-                    ('Congreso Nacional', 'Congreso de ámbito nacional', 200),
-                    ('Congreso Internacional', 'Congreso de alcance internacional', 500),
-                    ('Seminario Local', 'Evento de pequeña escala', 50),
-                    ('Taller Técnico', 'Taller práctico', 75),
-                    ('Simposio Científico', 'Simposio sobre investigaciones científicas', 150),
-                    ('Congreso Educativo', 'Congreso de educación', 300),
-                    ('Congreso de Tecnología', 'Congreso sobre avances tecnológicos', 400),
-                    ('Foro Empresarial', 'Foro para empresarios', 250);`
+                `INSERT INTO TipoCongresos (Nombre, Descripcion) VALUES 
+                    ('Congreso Nacional', 'Congreso de ámbito nacional'),
+                    ('Congreso Internacional', 'Congreso de alcance internacional'),
+                    ('Seminario Local', 'Evento de pequeña escala'),
+                    ('Taller Técnico', 'Taller práctico'),
+                    ('Simposio Científico', 'Simposio sobre investigaciones científicas'),
+                    ('Congreso Educativo', 'Congreso de educación'),
+                    ('Congreso de Tecnología', 'Congreso sobre avances tecnológicos'),
+                    ('Foro Empresarial', 'Foro para empresarios');`
             );
             console.log("Datos insertados en TipoCongreso!");
         }
@@ -47,7 +47,8 @@ async function CrearBaseSiNoExiste() {
                     Nombre TEXT,
                     Apellidos TEXT,
                     Biografia TEXT,
-                    Email TEXT
+                    Email TEXT,
+                    Activo BOOLEAN DEFAULT TRUE
                 )
             `);
             await db.run(`

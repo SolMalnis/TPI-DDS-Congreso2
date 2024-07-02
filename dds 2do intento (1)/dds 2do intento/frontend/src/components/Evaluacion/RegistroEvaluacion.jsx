@@ -9,7 +9,7 @@ export default function RegistroEvaluacion({onGuardar, onCancelar, item, actuali
         if (item.Id)
             actualizado(item.Id,data) 
         else
-            onGuardar(data, type)
+            onGuardar(data)
     }
         
     

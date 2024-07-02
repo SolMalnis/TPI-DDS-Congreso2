@@ -123,7 +123,7 @@ const Evaluaciones = sequelize.define('Evaluaciones', {
         allowNull: true
     },
     Fecha: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         allowNull: false,
         validate: {
             notNull: {
@@ -242,6 +242,11 @@ const Oradores = sequelize.define('Oradores', {
                 msg: 'Email es requerido'
             }
         }
+    },
+    Activo: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: true
     }
 }, {
     timestamps: false
@@ -443,15 +448,10 @@ const TipoCongresos = sequelize.define('TipoCongresos', {
             }
         }
     },
-    Participantes: {
-        type: DataTypes.INTEGER,
-        allowNull: true,
-        validate: {
-            isInt: {
-                args: true,
-                msg: 'Participantes debe ser un número entero'
-            }
-        }
+    Activo: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: true
     }
 }, {
     timestamps: false
