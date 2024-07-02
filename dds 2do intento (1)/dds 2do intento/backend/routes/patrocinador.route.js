@@ -18,6 +18,25 @@ router.get("/patrocinador", async (_, res) => {
     }
 });
 
+//Buscar patrocinador por nombre
+
+router.get("/patrocinador/:nombre", async (req, res) => {
+    try {
+        const nombre = req.params.nombre;
+        const patrocinador = await db.Patrocinadores.findAll({
+            where: {Nombre: { [Op.like]: nombre + "%"  }}
+        });
+        if (!patrocinador || patrocinador.length === 0) {
+            res.status(404).send({ mensaje: "Patrocinador no encontrado" });
+        } else {
+            res.json(patrocinador);
+        }
+    } catch (error) {
+        res.status(500).send({ mensaje: "Error al buscar Patrocinador" });
+    }
+});
+
+//Buscar patrocinador por ID
 
 router.get("/patrocinador/:id", async (req, res) => {
     try {
@@ -37,6 +56,8 @@ router.get("/patrocinador/:id", async (req, res) => {
         res.status(500).send({mensaje: "Error al buscar Patrocinador"})
     }
 });
+
+
 
 router.put("/patrocinador/e/:id", async (req, res) => {
     try {
