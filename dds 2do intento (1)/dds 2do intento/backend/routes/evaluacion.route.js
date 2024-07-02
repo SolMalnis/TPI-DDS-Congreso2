@@ -67,14 +67,15 @@ router.post("/evaluacion", async (req, res) => {
     try {
         const evaluacion= req.body;
         const nuevaEvaluacion = await db.Evaluaciones.create({
-            IdParticipante: evaluacion.IdParticipante,
             IdCongreso: evaluacion.IdCongreso,
-            Comentarios : evaluacion.Comentarios,
+            IdParticipante: evaluacion.IdParticipante,
             Puntuacion: evaluacion.Puntuacion,
-            Fecha: fecha
+            Comentarios : evaluacion.Comentarios,
+            Fecha: evaluacion.Fecha
         });
         res.status(201).json(nuevaEvaluacion);
     } catch (error) {
+        console.log(error)
         res.status(500).send({ mensaje: "Error al crear la evaluación" });
     }
 });
@@ -82,22 +83,26 @@ router.post("/evaluacion", async (req, res) => {
 router.put("/evaluacion/:id", async (req, res) => {
     try {
         const id = req.params.id;
-        const { idParticipante, idCongreso, comentarios, fecha } = req.body;
-        const evaluacion = await db.Evaluaciones.findOne({
-            where: {
-                Id: id
-            }
-        });
-        
+        const datosActuales = req.body;
+        const evaluacion = await db.Evaluaciones.findByPk(id);
         if (!evaluacion) {
             res.status(404).send({ mensaje: "Evaluación no encontrada" });
         } else {
-            evaluacion.IdParticipante = idParticipante;
-            evaluacion.IdCongreso = idCongreso;
-            evaluacion.Fecha = fecha;
-            evaluacion.Comentarios = comentarios
-            await evaluacion.save();
-            res.json(evaluacion);
+            const actualizarEvaluacion = await db.Evaluaciones.update(
+                {
+                    IdCongreso: datosActuales.IdCongreso,
+                    IdParticipante: datosActuales.IdParticipante,
+                    Puntuacion: datosActuales.Puntuacion,
+                    Comentarios: datosActuales.Comentarios,
+                    Fecha: datosActuales.Fecha,
+                },
+                {
+                    where: {
+                        Id : id
+                    },
+                }
+            );
+            res.status(200).send({mensaje: "Evaluacion actualizada"});
         }
     } catch (error) {
         res.status(500).send({ mensaje: "Error al actualizar la evaluación" });

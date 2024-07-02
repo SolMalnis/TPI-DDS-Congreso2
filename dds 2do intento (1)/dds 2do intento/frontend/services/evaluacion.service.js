@@ -26,7 +26,7 @@ async function crearEvaluacion(data) {
 
 
   async function actualizarEvaluacion(id, data) {
-    let newUrl = API_URL + "/:" + id;
+    let newUrl = API_URL + "/" + id;
     try{
         return await axios.put(newUrl, data).then((response) => {
             return response.data;

@@ -6,9 +6,11 @@ export default function RegistroEvaluacion({onGuardar, onCancelar, item, actuali
     const {register, handleSubmit, formState: {errors}} = useForm({values: item})
 
     const onSubmit = (data) => {
-       
-            onGuardar(data)
-        }
+        if (item.Id)
+            actualizado(item.Id,data) 
+        else
+            onGuardar(data, type)
+    }
         
     
     return(
