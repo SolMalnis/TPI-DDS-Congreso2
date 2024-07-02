@@ -46,5 +46,5 @@ async function crearEvaluacion(data) {
     }
    
   }
-
+  
 export default {getEvaluaciones, crearEvaluacion, actualizarEvaluacion, eliminarEvaluacion}

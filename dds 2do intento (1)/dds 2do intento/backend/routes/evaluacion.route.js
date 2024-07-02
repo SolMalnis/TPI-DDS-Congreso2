@@ -18,7 +18,27 @@ router.get("/evaluacion", async (_, res) => {
     }
 });
 
+//Filtrar por congreso
 
+router.get("/evaluacion/congreso/:filtro", async(req, res) => {
+    try {
+        const congreso = req.params.filtro;
+        console.log("Filtro recibido", congreso);
+        const evaluacion = await db.Evaluaciones.findAll({
+            where: {
+                IdCongreso: congreso,
+            },
+        });
+    if (evaluacion.length === 0) {
+        res.status(404).send({ mensaje: "Evaluacion no encontrada"});
+    } else{
+        res.json(evaluacion);
+    }
+    } catch (error) {
+        console.log(error)
+        res.status(500).send({mensaje: "Error interno"})
+    }
+});
 
 //Filtrar Evaluaciones por ID
 router.get("/evaluacion/:id", async (req, res) => {
@@ -61,7 +81,6 @@ router.delete("/evaluacion/:id", async (req, res) => {
         res.status(500).send({ mensaje: "Error al eliminar la evaluación" });
     }
 });
-
 
 router.post("/evaluacion", async (req, res) => {
     try {
