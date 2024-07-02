@@ -70,6 +70,11 @@ const Congreso = sequelize.define('Congreso', {
                 msg: 'Id de orador es requerido'
             }
         }
+    },
+    Activo: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: true
     }
 }, {
     freezeTableName: true,
@@ -394,6 +399,11 @@ const Salas = sequelize.define('Salas', {
                 msg: 'Capacidad de sala debe ser como mínimo 1'
             }
         }
+    },
+    Activo: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: true
     }
 }, {
     timestamps: false

@@ -70,6 +70,7 @@ router.post("/evaluacion", async (req, res) => {
             IdParticipante: evaluacion.IdParticipante,
             IdCongreso: evaluacion.IdCongreso,
             Comentarios : evaluacion.Comentarios,
+            Puntuacion: evaluacion.Puntuacion,
             Fecha: fecha
         });
         res.status(201).json(nuevaEvaluacion);

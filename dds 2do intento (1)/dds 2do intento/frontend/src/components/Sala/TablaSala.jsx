@@ -7,25 +7,12 @@ export default function Tabla({rows ,onEliminar}){
         }
         return('NO')
     }
-{/* Id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    NombreCongreso TEXT,
-                    DescripcionCongreso TEXT,
-                    FechaCongreso DATE,
-                    IdTipoCongreso INTEGER,
-                    IdOrador INTEGER,
-                    IdSala INTEGER,
-                    IdPatrocinador INTEGER,
-                    Activo BOOLEAN DEFAULT TRUE,*/}
+
     const tbody = rows.map(e => 
         <tr key={e.Id}>
             <td>{e.Id}</td>
-            <td>{e.NombreCongreso}</td>
-            <td>{e.DescripcionCongreso}</td>
-            <td>{e.FechaCongreso}</td>
-            <td>{e.IdTipoCongreso}</td>
-            <td>{e.IdOrador}</td>
-            <td>{e.IdSala}</td>
-            <td>{e.IdPatrocinador}</td>
+            <td>{e.NombreSala}</td>
+            <td>{e.Capacidad}</td>
             <td>{escribir(e.Activo)}</td>
             <td>
             {e.Activo && (
@@ -54,7 +41,7 @@ export default function Tabla({rows ,onEliminar}){
                 <div className="card-header d-flex justify-content-between aling-items-center">
                     <span>Resultados:</span>
                     <button type="button" className="btn btn-primary">
-                         Nuevo Congreso
+                         Nueva Sala
                     </button>
                 </div>
                 <div className="card-body">
@@ -62,12 +49,7 @@ export default function Tabla({rows ,onEliminar}){
                         <thead>
                             <th>Identificacion</th>
                             <th>Nombre</th>
-                            <th>Descriipcion</th>
-                            <th>Fecha</th>
-                            <th>Tipo Congreso</th>
-                            <th>Orador</th>
-                            <th>sala</th>
-                            <th>Patrocinador</th>
+                            <th>Capacidad</th>
                             <th>Activo</th>
                           
                         </thead>

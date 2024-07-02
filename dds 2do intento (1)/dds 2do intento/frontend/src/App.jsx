@@ -9,6 +9,9 @@ import {Footer} from './components/Footer'
 import PagInicio from "./components/PagInicio"
 import Evaluacion from './components/Evaluacion/Evaluacion'
 
+import Sala from './components/Sala/Sala'
+import Congreso from './components/Congreso/Congreso'
+
 function App() {
   
 
@@ -22,6 +25,8 @@ function App() {
           <Routes>
           <Route path="/Inicio" element={<PagInicio/>}/>
           <Route path="/evaluacion" element={<Evaluacion/>}/>
+          <Route path="/sala" element={<Sala/>}/>
+          <Route path="/congreso" element={<Congreso/>}/>
           <Route path="*" element={<Navigate to="/Inicio" replace />}/> 
                 
           </Routes>

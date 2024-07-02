@@ -1,25 +1,29 @@
-import axios from 'axios';
+import axios from 'axios'
 
-const apiUrl = "http://localhost:3000"
+const API_URL = "http://localhost:3000/congreso";
 
-const getAllCongresos = async () => {
-    try {
-        const response1 = await axios.get(`${apiUrl}/congreso`)
-        const data = response1.data;
-        const response2 = await axios.get(`${apiUrl}/congreso`)
-        const data2 = response2.data;
-
-        for (let i = 0; i < data.length; i++) {
-            for(let j = 0; j < data2.length; j++){
-                if(data[i].id_congreso === data2[j].id){
-                    data[i].id_congreso[j].nombre;             
-                }
-            }
-        }
-
-        return data;
-        
-    } catch (error) {
+async function getCongresos() {
+    try{
+        return await axios.get(API_URL).then((response) => {
+            return response.data; });
+    }
+    catch (error) {
         throw error;
     }
 }
+
+async function eliminarCongreso(id) {
+    try{
+        let newUrl = API_URL + "/" + id;
+        return await axios.put(newUrl).then((response) => {
+          return response.data;
+        });
+    }catch (error) {
+        throw error;
+    }
+   
+  }
+
+
+
+export default {getCongresos, eliminarCongreso}

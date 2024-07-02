@@ -34,9 +34,7 @@ export default function Evaluacion(){
             loadGrid()
             setAction('C')
         }
-        else{
-            setAction('C')
-        }
+
     }
     const onCancelar = () => {
         setAction('C')
@@ -48,6 +46,10 @@ export default function Evaluacion(){
             setAction('C')
         }
     }
+    const onEliminar = async (id) => {
+        await servicesEvaluacion.eliminarEvaluacion(id)
+        loadGrid()
+}
 
     return (
         <>
@@ -55,7 +57,7 @@ export default function Evaluacion(){
                 action === 'C' && (
                     <>
                          
-                         <TablaEvaluacion rows={rows} onNewClick={onNewClick} onActualizar={onActualizar} ></TablaEvaluacion>
+                         <TablaEvaluacion rows={rows} onNewClick={onNewClick} onActualizar={onActualizar} onEliminar={onEliminar} ></TablaEvaluacion>
                     </>
                 ) 
             }

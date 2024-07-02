@@ -77,21 +77,22 @@ async function CrearBaseSiNoExiste() {
                 CREATE TABLE Salas (
                     Id INTEGER PRIMARY KEY AUTOINCREMENT,
                     NombreSala TEXT,
-                    Capacidad INTEGER
+                    Capacidad INTEGER,
+                    Activo BOOLEAN
                 )
             `);
             await db.run(`
-                INSERT INTO Salas (NombreSala, Capacidad) VALUES
-                ('Auditorio Principal', 300),
-                ('Sala A', 100),
-                ('Sala B', 150),
-                ('Sala C', 200),
-                ('Sala D', 250),
-                ('Sala E', 400),
-                ('Sala F', 350),
-                ('Sala G', 450),
-                ('Sala H', 500),
-                ('Sala I', 600)
+                INSERT INTO Salas (NombreSala, Capacidad, Activo) VALUES
+                ('Auditorio Principal', 300 ,TRUE),
+                ('Sala A', 100,TRUE),
+                ('Sala B', 150,TRUE),
+                ('Sala C', 200 ,TRUE),
+                ('Sala D', 250,TRUE),
+                ('Sala E', 400,TRUE),
+                ('Sala F', 350,TRUE),
+                ('Sala G', 450,TRUE),
+                ('Sala H', 500,TRUE),
+                ('Sala I', 600,TRUE)
             `);
         }
 
@@ -145,6 +146,7 @@ async function CrearBaseSiNoExiste() {
                     IdOrador INTEGER,
                     IdSala INTEGER,
                     IdPatrocinador INTEGER,
+                    Activo BOOLEAN DEFAULT TRUE,
                     FOREIGN KEY (IdTipoCongreso) REFERENCES TipoCongresos(Id),
                     FOREIGN KEY (IdOrador) REFERENCES Oradores(Id),
                     FOREIGN KEY (IdSala) REFERENCES Salas(Id),

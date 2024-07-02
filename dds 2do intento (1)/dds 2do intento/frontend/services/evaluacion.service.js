@@ -34,9 +34,17 @@ async function crearEvaluacion(data) {
     }catch (error) {
         throw error;
     }
-        
-    
+  }
+  async function eliminarEvaluacion(id) {
+    try{
+        let newUrl = API_URL + "/" + id;
+        return await axios.delete(newUrl).then((response) => {
+          return response.data;
+        });
+    }catch (error) {
+        throw error;
+    }
+   
   }
 
-
-export default {getEvaluaciones, crearEvaluacion, actualizarEvaluacion}
+export default {getEvaluaciones, crearEvaluacion, actualizarEvaluacion, eliminarEvaluacion}

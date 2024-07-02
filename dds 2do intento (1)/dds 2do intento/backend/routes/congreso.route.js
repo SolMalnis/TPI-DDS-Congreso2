@@ -36,4 +36,28 @@ router.get("/congreso/:id", async (req, res) => {
         res.status(500).send({mensaje: "Error al buscar congreso"})
     }
 });
+
+
+router.put("/congreso/:id", async (req, res) => {
+    try {
+        const id = req.params.id;
+      
+        const congreso = await db.Congreso.findOne({
+            where: {
+                Id: id,
+                Activo: true
+            }
+        });
+        
+        if (!congreso) {
+            res.status(404).send({ mensaje: "congreso no encontrada" });
+        } else {
+            congreso.Activo = false
+            await congreso.save();
+            res.json(congreso);
+        }
+    } catch (error) {
+        res.status(500).send({ mensaje: "Error al actualizar congreso" });
+    }
+});
 module.exports = router;

@@ -38,5 +38,28 @@ router.get("/sala/:id", async (req, res) => {
     }
 });
 
+router.put("/sala/:id", async (req, res) => {
+    try {
+        const id = req.params.id;
+      
+        const sala = await db.Salas.findOne({
+            where: {
+                Id: id,
+                Activo: true
+            }
+        });
+        
+        if (!sala) {
+            res.status(404).send({ mensaje: "sala no encontrada" });
+        } else {
+            sala.Activo = false
+            await sala.save();
+            res.json(sala);
+        }
+    } catch (error) {
+        res.status(500).send({ mensaje: "Error al actualizar la sala" });
+    }
+});
+
 
 module.exports = router;
