@@ -295,6 +295,11 @@ const Participantes = sequelize.define('Participantes', {
                 msg: 'Fecha de nacimiento es requerida'
             }
         }
+    },
+    Activo: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: true
     }
 }, {
     timestamps: false
@@ -350,18 +355,20 @@ const Patrocinadores = sequelize.define('Patrocinadores', {
         }
     },
     Telefono: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING(60),
         allowNull: false,
         validate: {
             notEmpty: {
                 args: true,
                 msg: 'Teléfono es requerido'
             },
-            isInt: {
-                args: true,
-                msg: 'Teléfono debe ser un número entero'
-            }
+            
         }
+    },
+    Activo: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: true
     }
 }, {
     timestamps: false

@@ -38,6 +38,95 @@ router.get("/participante/:id", async (req, res) => {
     }
 });
 
+router.put("/participante/e/:id", async (req, res) => {
+    try {
+        const id = req.params.id;
+      
+        const participante = await db.Participantes.findOne({
+            where: {
+                Id: id,
+                Activo: true
+            }
+        });
+        
+        if (!participante) {
+            res.status(404).send({ mensaje: "participante no encontrado" });
+        } else {
+            participante.Activo = false
+            await participante.save();
+            res.json(participante);
+        }
+    } catch (error) {
+        res.status(500).send({ mensaje: "Error al actualizar el participante" });
+    }
+});
 
+
+router.delete("/participante/:id", async (req, res) => {
+    try {
+        const id = req.params.id;
+        const result = await db.Participantes.destroy({
+            where: {
+                Id: id
+            }
+        });
+
+        if (result === 0) {
+            res.status(404).send({ mensaje: "participante  no encontrado" });
+        } else {
+            res.status(200).send({ mensaje: "participante eliminado exitosamente" });
+        }
+        
+    } catch (error) {
+        res.status(500).send({ mensaje: "Error al eliminar participante" });
+    }
+});
+
+
+router.post("/participante", async (req, res) => {
+    try {
+        const participante= req.body;
+        const nuevoparticipante = await db.Participantes.create({
+            NombreParticipante:participante.NombreParticipante,
+            ApellidoParticipante: participante.ApellidoParticipante,
+            FechaNacimiento:participante.FechaNacimiento,
+    
+        });
+        res.status(201).json(nuevoparticipante);
+    } catch (error) {
+        console.log(error)
+        res.status(500).send({ mensaje: "Error al crear nuevo participante" });
+    }
+})
+
+
+
+router.put("/participante/:id", async (req, res) => {
+    try {
+        const id = req.params.id;
+        const datosActuales = req.body;
+        const participante = await db.Participantes.findByPk(id);
+        if (!participante) {
+            res.status(404).send({ mensaje: "participante no encontrado" });
+        } else {
+            const actualizarparticipante = await db.Participantes.update(
+                {
+                    NombreParticipante:datosActuales.NombreParticipante,
+                    ApellidoParticipante: datosActuales.ApellidoParticipante,
+                    FechaNacimiento: datosActuales.FechaNacimiento,
+                },
+                {
+                    where: {
+                        Id : id,
+                        Activo : true
+                    },
+                }
+            );
+            res.status(200).send({mensaje: "participante actualizado"});
+        }
+    } catch (error) {
+        res.status(500).send({ mensaje: "Error al actualizar participante" });
+    }
+});
 
 module.exports = router;

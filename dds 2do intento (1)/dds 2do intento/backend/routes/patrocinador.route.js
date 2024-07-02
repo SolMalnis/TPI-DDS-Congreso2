@@ -38,6 +38,95 @@ router.get("/patrocinador/:id", async (req, res) => {
     }
 });
 
+router.put("/patrocinador/e/:id", async (req, res) => {
+    try {
+        const id = req.params.id;
+      
+        const patrocinador = await db.Patrocinadores.findOne({
+            where: {
+                Id: id,
+                Activo: true
+            }
+        });
+        
+        if (!patrocinador) {
+            res.status(404).send({ mensaje: "patrocinador no encontrado" });
+        } else {
+            patrocinador.Activo = false
+            await patrocinador.save();
+            res.json(patrocinador);
+        }
+    } catch (error) {
+        res.status(500).send({ mensaje: "Error al actualizar el patrocinador" });
+    }
+});
+
+router.delete("/patrocinador/:id", async (req, res) => {
+    try {
+        const id = req.params.id;
+        const result = await db.Patrocinadores.destroy({
+            where: {
+                Id: id
+            }
+        });
+
+        if (result === 0) {
+            res.status(404).send({ mensaje: "patrocinador  no encontrado" });
+        } else {
+            res.status(200).send({ mensaje: "ppatrocinador eliminado exitosamente" });
+        }
+        
+    } catch (error) {
+        res.status(500).send({ mensaje: "Error al eliminar patrocinador" });
+    }
+});
+
+router.post("/patrocinador", async (req, res) => {
+    try {
+        const patrocinador= req.body;
+        const nuevopatrocinador = await db.Patrocinadores.create({
+            Nombre:patrocinador.Nombre,
+            Descripcion: patrocinador.Descripcion,
+            Email:patrocinador.Email,
+            Telefono :patrocinador.Telefono
+    
+        });
+        res.status(201).json(nuevopatrocinador);
+    } catch (error) {
+        console.log(error)
+        res.status(500).send({ mensaje: "Error al crear nuevo patrocinador" });
+    }
+})
+
+router.put("/patrocinador/:id", async (req, res) => {
+    try {
+        const id = req.params.id;
+        const datosActuales = req.body;
+        const patrocinador = await db.Patrocinadores.findByPk(id);
+        if (!patrocinador) {
+            res.status(404).send({ mensaje: "patrocinador no encontrado" });
+        } else {
+            const actualizarpatrocinador = await db.Patrocinadores.update(
+                {
+                    Nombre:datosActuales.Nombre,
+                    Descripcion: datosActuales.Descripcion,
+                    Email:datosActuales.Email,
+                    Telefono:datosActuales.Telefono
+                },
+                {
+                    where: {
+                        Id : id,
+                        Activo : true
+                    },
+                }
+            );
+            res.status(200).send({mensaje: "patrocinador actualizado"});
+        }
+    } catch (error) {
+        res.status(500).send({ mensaje: "Error al actualizar patrocinador" });
+    }
+});
+
 
 
 module.exports = router;

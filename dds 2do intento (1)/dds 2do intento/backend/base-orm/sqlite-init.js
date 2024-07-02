@@ -111,7 +111,8 @@ async function CrearBaseSiNoExiste() {
                     Nombre TEXT,
                     Descripcion TEXT,
                     Email TEXT,
-                    Telefono TEXT
+                    Telefono TEXT,
+                    Activo BOOLEAN DEFAULT TRUE
                 )
             `);
             await db.run(`
@@ -182,7 +183,8 @@ async function CrearBaseSiNoExiste() {
                     Id INTEGER PRIMARY KEY AUTOINCREMENT,
                     NombreParticipante TEXT,
                     ApellidoParticipante TEXT,
-                    FechaNacimiento DATE
+                    FechaNacimiento DATE,
+                    Activo BOOLEAN DEFAULT TRUE
                 )
             `);
             await db.run(`

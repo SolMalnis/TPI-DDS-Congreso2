@@ -14,7 +14,8 @@ import Sala from './components/Sala/Sala'
 import Congreso from './components/Congreso/Congreso'
 import TipoCongreso from "./components/TipoCongreso/TipoCongreso"
 import Orador from './components/Orador/Orador'
-
+import Participante from './components/Participante/Participante'
+import Patrocinador from './components/Patrocinador/Patrocinador'
 function App() {
   
 
@@ -33,6 +34,8 @@ function App() {
           <Route path="/tipoCongreso" element={<TipoCongreso/>}/>
           <Route path="/congreso" element={<Congreso/>}/>
           <Route path="/orador" element={<Orador/>}/>
+          <Route path="/participante" element={<Participante/>}/>
+          <Route path="/patrocinador" element={<Patrocinador/>}/>
           <Route path="*" element={<Navigate to="/Inicio" replace />}/> 
                 
           </Routes>
