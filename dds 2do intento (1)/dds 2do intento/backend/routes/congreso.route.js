@@ -38,7 +38,7 @@ router.get("/congreso/:id", async (req, res) => {
 });
 
 
-router.put("/congreso/:id", async (req, res) => {
+router.put("/congreso/e/:id", async (req, res) => {
     try {
         const id = req.params.id;
       

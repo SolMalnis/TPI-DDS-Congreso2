@@ -1,23 +1,28 @@
 import React, { useEffect, useState } from 'react'
+import servicesTipoCongreso from "../../../services/tipocongreso.service.js"
 
-import servicesEvaluacion from "../../../services/evaluacion.service.js"
+import TablaTipoCongreso from "./TablaTipoCongreso.jsx"
+import RegistroTipoCongreso from './RegistroTipoCongreso.jsx'
 
-import TablaEvaluacion from "./TablaEvaluacion.jsx"
-import RegistroEvaluacion from "./RegistroEvaluacion.jsx"
 
-export default function Evaluacion(){
+export default function TipoCongreso(){
     const [rows, setRows] = useState([])
     const [action, setAction] = useState('C')
     const [item, setItem] = useState({})
-    
+
     const loadGrid = async() =>{
-        const data = await servicesEvaluacion.getEvaluaciones()
+        const data = await servicesTipoCongreso.getTipoCongreso()
         setRows(data)
     }
 
     useEffect(() => {
         loadGrid()
     }, [])
+
+    const onEliminar = async (id) => {
+        await servicesTipoCongreso.eliminarTipoCongreso(id)
+        loadGrid()
+    }
 
     const onNewClick = () => {
         setAction('N')
@@ -29,7 +34,7 @@ export default function Evaluacion(){
     }
 
     const onGuardar = async (data) => {
-        const result = await servicesEvaluacion.crearEvaluacion(data)
+        const result = await servicesTipoCongreso.crearTipoCongreso(data)
         if(result){
             loadGrid()
             setAction('C')
@@ -39,18 +44,15 @@ export default function Evaluacion(){
     const onCancelar = () => {
         setAction('C')
     }
+
     const actualizado = async (id, data) => {
-        const result = await servicesEvaluacion.actualizarEvaluacion(id, data)
+        const result = await servicesTipoCongreso.actualizarTipoCongreso(id, data)
         if(result){
             loadGrid()
             setAction('C')
             setItem({})
         }
     }
-    const onEliminar = async (id) => {
-        await servicesEvaluacion.eliminarEvaluacion(id)
-        loadGrid()
-}
 
     return (
         <>
@@ -58,20 +60,18 @@ export default function Evaluacion(){
                 action === 'C' && (
                     <>
                          
-                         <TablaEvaluacion rows={rows} onNewClick={onNewClick} onActualizar={onActualizar} onEliminar={onEliminar} ></TablaEvaluacion>
+                         <TablaTipoCongreso rows={rows} onNewClick={onNewClick} onActualizar={onActualizar} onEliminar={onEliminar} ></TablaTipoCongreso>
                     </>
                 ) 
             }
             {
                 action !== 'C' && (
                     <>
-                        <RegistroEvaluacion  onGuardar={onGuardar} onCancelar={onCancelar} item = {item} actualizado={actualizado}/>
+                        <RegistroTipoCongreso  onGuardar={onGuardar} onCancelar={onCancelar} item = {item} actualizado={actualizado}/>
                     </>
                 )
             }
         </>
     )
 
-
-
-} 
+}

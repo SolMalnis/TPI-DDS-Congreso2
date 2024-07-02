@@ -6,8 +6,10 @@ export default function Tabla({rows , onNewClick, onActualizar, onEliminar}){
     const tbody = filteredRows.map(e => 
         <tr key={e.Id}>
             <td>{e.Id}</td>
-            <td>{e.NombreSala}</td>
-            <td>{e.Capacidad}</td>
+            <td>{e.Nombre}</td>
+            <td>{e.Apellidos}</td>
+            <td>{e.Biografia}</td>
+            <td>{e.Email}</td>
             <td>
             {e.Activo && (
                     <button
@@ -35,7 +37,7 @@ export default function Tabla({rows , onNewClick, onActualizar, onEliminar}){
                 <div className="card-header d-flex justify-content-between aling-items-center">
                     <span>Resultados:</span>
                     <button type="button" className="btn btn-primary" onClick={onNewClick} >
-                         Nueva Sala
+                         Nuevo Orador
                     </button>
                 </div>
                 <div className="card-body">
@@ -43,7 +45,9 @@ export default function Tabla({rows , onNewClick, onActualizar, onEliminar}){
                         <thead>
                             <th>Identificacion</th>
                             <th>Nombre</th>
-                            <th>Capacidad</th>
+                            <th>Apellido</th>
+                            <th>Biografia</th>
+                            <th>Email</th>
                        
                           
                         </thead>
