@@ -8,6 +8,8 @@ import {Menu} from "./components/Menu"
 import {Footer} from './components/Footer'
 import PagInicio from "./components/PagInicio"
 import Evaluacion from './components/Evaluacion/Evaluacion'
+import Congresos from './components/Congreso/TablaCongreso'
+
 
 function App() {
   
@@ -21,6 +23,7 @@ function App() {
       <div className="divBody">
           <Routes>
           <Route path="/Inicio" element={<PagInicio/>}/>
+          <Route path="/congresos" element={<Congresos/>}/>
           <Route path="/evaluacion" element={<Evaluacion/>}/>
           <Route path="*" element={<Navigate to="/Inicio" replace />}/> 
                 
