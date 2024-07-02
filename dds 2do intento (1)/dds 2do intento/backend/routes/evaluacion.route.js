@@ -65,10 +65,11 @@ router.delete("/evaluacion/:id", async (req, res) => {
 
 router.post("/evaluacion", async (req, res) => {
     try {
-        const { nombre, descripcion, fecha } = req.body;
+        const evaluacion= req.body;
         const nuevaEvaluacion = await db.Evaluaciones.create({
-            Nombre: nombre,
-            Descripcion: descripcion,
+            IdParticipante: evaluacion.IdParticipante,
+            IdCongreso: evaluacion.IdCongreso,
+            Comentarios : evaluacion.Comentarios,
             Fecha: fecha
         });
         res.status(201).json(nuevaEvaluacion);
@@ -80,7 +81,7 @@ router.post("/evaluacion", async (req, res) => {
 router.put("/evaluacion/:id", async (req, res) => {
     try {
         const id = req.params.id;
-        const { nombre, descripcion, fecha } = req.body;
+        const { idParticipante, idCongreso, comentarios, fecha } = req.body;
         const evaluacion = await db.Evaluaciones.findOne({
             where: {
                 Id: id
@@ -90,9 +91,10 @@ router.put("/evaluacion/:id", async (req, res) => {
         if (!evaluacion) {
             res.status(404).send({ mensaje: "Evaluación no encontrada" });
         } else {
-            evaluacion.Nombre = nombre;
-            evaluacion.Descripcion = descripcion;
+            evaluacion.IdParticipante = idParticipante;
+            evaluacion.IdCongreso = idCongreso;
             evaluacion.Fecha = fecha;
+            evaluacion.Comentarios = comentarios
             await evaluacion.save();
             res.json(evaluacion);
         }

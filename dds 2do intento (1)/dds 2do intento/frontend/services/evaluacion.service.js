@@ -13,5 +13,30 @@ async function getEvaluaciones() {
     
 }
 
+async function crearEvaluacion(data) {
+    try{
+        return await axios.post(API_URL, data).then((response) => {
+        return response.data;
+      });
+    }catch (error) {
+        throw error;
+    }
+    
+  }
 
-export default getEvaluaciones
+
+  async function actualizarEvaluacion(id, data) {
+    let newUrl = API_URL + "/:" + id;
+    try{
+        return await axios.put(newUrl, data).then((response) => {
+            return response.data;
+        });
+    }catch (error) {
+        throw error;
+    }
+        
+    
+  }
+
+
+export default {getEvaluaciones, crearEvaluacion, actualizarEvaluacion}

@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Tabla({rows}){
+export default function Tabla({rows , onNewClick, onActualizar}){
 
     const tbody = rows.map(e => 
         <tr key={e.Id}>
@@ -18,7 +18,7 @@ export default function Tabla({rows}){
 
             <td>
                  {
-                     (<button disabled={e.Eliminado === true} className="btn btn-sm btn-secondary" >Actualizar</button>)   
+                     (<button disabled={e.Eliminado === true} className="btn btn-sm btn-secondary" onClick={()=>{onActualizar(e)}} >Actualizar</button>)   
                  }  
 
             </td>
@@ -30,7 +30,7 @@ export default function Tabla({rows}){
             <div className="card">
                 <div className="card-header d-flex justify-content-between aling-items-center">
                     <span>Resultados:</span>
-                    <button type="button"  className="btn btn-primary">
+                    <button type="button" onClick={onNewClick} className="btn btn-primary">
                          Nueva Evaluacion
                     </button>
                 </div>
